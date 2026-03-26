@@ -9,7 +9,9 @@ namespace EFcore.Models
     internal class Course
     {
         public int Id { get; set; }
-        public string Name { get; set; }
-        //public StudentesCourses? StudentesCourses { get; set; }
+        public string Title { get; set; } = null!;
+
+        public ICollection<Student> Students { get; set; } = new HashSet<Student>(); // navigation property
+
     }
 }

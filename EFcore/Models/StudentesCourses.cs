@@ -11,9 +11,7 @@ namespace EFcore.Models
         public int? StdId { get; set; }
         public int? CrsId { get; set; }
         public int? Grade { get; set; }
+        // re
 
-/*        public ICollection<Student> StudentsId { get; set; }
-        public ICollection<Course> CoursesId { get; set; }
-*/
     }
 }

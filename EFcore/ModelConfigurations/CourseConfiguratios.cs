@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace EFcore.ModelConfigurations
 {
-    internal class Course : IEntityTypeConfiguration<Models.Course>
+    internal class CourseConfiguratios : IEntityTypeConfiguration<Models.Course>
     {
         public void Configure(EntityTypeBuilder<Models.Course> builder)
         {
