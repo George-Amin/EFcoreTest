@@ -29,13 +29,7 @@ namespace EFcore.ConfigurationClasses
             builder.OwnsOne(A => A.Address);
 
 
-            //builder.HasOne(E => E.Department)
-            //    .WithMany(D => D.Employees)
-            //    .HasForeignKey(e => e.DeptId); // one to many relationship between Employee and Department
-            builder.HasOne(e => e.Department)      // Employee has one Dept (workplace)
-    .WithMany(d => d.Employees)     // Dept has many Employees (staff)
-    .HasForeignKey(e => e.DepartmentId)
-    .OnDelete(DeleteBehavior.Restrict); // Prevent accidental deletions
+
         }
     }
 }

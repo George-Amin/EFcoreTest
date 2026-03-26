@@ -14,11 +14,11 @@ namespace EFcore.Models
         public Address? Address { get; set; }
 
         #region Relationship
-        public int DeptId { get; set; } // FK to the Department entity
-        public Department Department { get; set; } = null!; // Navigation property for the department the employee belongs to
+        public int DepartmentId { get; set; } // FK to the Department entity
+        public Department EmployeeDepartment { get; set; } = null!; // Navigation property for the department the employee belongs to
 
 
-        public Department ManagedDepartment { get; set; } = null!; //Navigational Property To ManagerId In Department
+        public Department? ManagedDepartment { get; set; } = null!; //Navigational Property To ManagerId In Department
 
         #endregion
 

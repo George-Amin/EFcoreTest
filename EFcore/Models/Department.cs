@@ -16,13 +16,13 @@ namespace EFcore.Models
 
         #region Relationship 
         // Navigation property to represent the one-to-many relationship with Employees.
-        //public ICollection<Employee>? Employees { get; set; } = null;
+
 
         public int ManagerId { get; set; } // FK
 
         public Employee Manager { get; set; } = null!; // Navigation property for the manager of the department
 
-        public ICollection<Employee> Employees { get; set; } = new List<Employee>(); // Navigation property for the employees in the department
+        public ICollection<Employee> Employees { get; set; } = new HashSet<Employee>(); // Navigation property for the employees in the department
 
         #endregion
 

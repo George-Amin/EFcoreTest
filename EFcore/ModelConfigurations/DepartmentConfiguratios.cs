@@ -29,16 +29,20 @@ namespace EFcore.ConfigurationClasses
                    .HasAnnotation("DataType", "Date")
                    .HasDefaultValueSql("GETDATE()");
 
-            //builder.HasMany(d => d.Employees)
-            //       .WithOne(e => e.Department); // One-to-many relationship between Department and Employee
 
-            //builder.HasOne(d=>d.Employee)
-            //    .WithOne(e=>e.Department)
-            //    .HasForeignKey<Department>(d => d.ManagerId)
-            //       .OnDelete(DeleteBehavior.NoAction); // One-to-one relationship between Department and Employee for the Manager     
-            builder.HasOne(d => d.Manager)              // Dept has one Manager
-        .WithOne(e => e.ManagedDepartment)   // Employee manages one Dept
-        .HasForeignKey<Department>(d => d.ManagerId); // FK is in Department table
+            builder.HasOne(d => d.Manager)
+                .WithOne(e => e.ManagedDepartment)
+                .HasForeignKey<Department>(d => d.ManagerId)
+                .OnDelete(DeleteBehavior.NoAction)
+                .IsRequired(true);
+
+
+
+            builder.HasMany(d => d.Employees)
+                .WithOne(e => e.EmployeeDepartment)
+                .HasForeignKey(e => e.DepartmentId)
+                .IsRequired(true);
+
 
         }
     }
