@@ -15,20 +15,20 @@ namespace EFcore.ConfigurationClasses
     {
         public void Configure(EntityTypeBuilder<Employee> builder)
         {
-            builder.ToTable("Employees");
+            //builder.ToTable("Employees");
 
 
-          
+
             builder.HasKey(e => e.EmpId);
-           
+
             builder.Property(e => e.EmpId).HasColumnName("EmployeeID").IsRequired(true);
-         
-
-            builder.Property(e => e.Name).HasMaxLength(100);
-           
-            builder.OwnsOne(A => A.Address);
 
 
+            builder.Property(e => e.EmpName).HasMaxLength(100);
+
+            builder.OwnsOne(A => A.EmpAddress);
+
+            //builder.Property(e => e.DepartmentId);  
 
         }
     }

@@ -34,7 +34,7 @@ namespace EFcore.ConfigurationClasses
                 .WithOne(e => e.ManagedDepartment)
                 .HasForeignKey<Department>(d => d.ManagerId)
                 .OnDelete(DeleteBehavior.NoAction)
-                .IsRequired(true);
+                /*.IsRequired(true)*/;
 
 
 
@@ -42,6 +42,35 @@ namespace EFcore.ConfigurationClasses
                 .WithOne(e => e.EmployeeDepartment)
                 .HasForeignKey(e => e.DepartmentId)
                 .IsRequired(true);
+
+            #region Data Seeding Using Fluent API Migrations
+
+            // using migration should all data is seeded
+
+            builder.HasData(
+
+                 new Department()
+                 {
+                     DeptId = 5,
+                     Name = "Software",
+                     DateOfCreation = new DateOnly(2024, 7, 20)
+
+                 },
+
+                new Department()
+                {
+                    DeptId = 6,
+                    Name = "Design",
+                    DateOfCreation = new DateOnly(2024, 7, 25)
+
+                }
+            );
+
+
+
+            #endregion
+
+
 
 
         }

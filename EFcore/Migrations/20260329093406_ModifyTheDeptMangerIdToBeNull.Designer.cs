@@ -4,6 +4,7 @@ using EFcore.DBContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EFcore.Migrations
 {
     [DbContext(typeof(CompanyDbContext))]
-    partial class CompanyDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260329093406_ModifyTheDeptMangerIdToBeNull")]
+    partial class ModifyTheDeptMangerIdToBeNull
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -69,20 +72,6 @@ namespace EFcore.Migrations
                         .HasFilter("[ManagerId] IS NOT NULL");
 
                     b.ToTable("Departments", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            DeptId = 5,
-                            DateOfCreation = new DateOnly(2024, 7, 20),
-                            Name = "Software"
-                        },
-                        new
-                        {
-                            DeptId = 6,
-                            DateOfCreation = new DateOnly(2024, 7, 25),
-                            Name = "Design"
-                        });
                 });
 
             modelBuilder.Entity("EFcore.Models.Employee", b =>
@@ -94,28 +83,13 @@ namespace EFcore.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("EmpId"));
 
-                    b.Property<int>("Age")
-                        .HasColumnType("int");
-
                     b.Property<int>("DepartmentId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Email")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("EmpName")
+                    b.Property<string>("Name")
+                        .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
-
-                    b.Property<string>("Password")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PhoneNumber")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal>("Salary")
-                        .HasColumnType("decimal(18,2)");
 
                     b.HasKey("EmpId");
 
@@ -180,7 +154,7 @@ namespace EFcore.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.OwnsOne("EFcore.Models.Address", "EmpAddress", b1 =>
+                    b.OwnsOne("EFcore.Models.Address", "Address", b1 =>
                         {
                             b1.Property<int>("EmployeesAddressEmpId")
                                 .HasColumnType("int");
@@ -196,7 +170,7 @@ namespace EFcore.Migrations
 
                             b1.HasKey("EmployeesAddressEmpId");
 
-                            b1.ToTable("Employees", (string)null);
+                            b1.ToTable("Employees");
 
                             b1.WithOwner("EmployeesAddress")
                                 .HasForeignKey("EmployeesAddressEmpId");
@@ -204,8 +178,7 @@ namespace EFcore.Migrations
                             b1.Navigation("EmployeesAddress");
                         });
 
-                    b.Navigation("EmpAddress")
-                        .IsRequired();
+                    b.Navigation("Address");
 
                     b.Navigation("EmployeeDepartment");
                 });

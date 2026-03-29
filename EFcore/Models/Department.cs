@@ -18,7 +18,7 @@ namespace EFcore.Models
         // Navigation property to represent the one-to-many relationship with Employees.
 
 
-        public int ManagerId { get; set; } // FK
+        public int? ManagerId { get; set; } // FK
 
         public Employee Manager { get; set; } = null!; // Navigation property for the manager of the department
 

@@ -4,6 +4,7 @@ using EFcore.DBContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EFcore.Migrations
 {
     [DbContext(typeof(CompanyDbContext))]
-    partial class CompanyDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260329132647_RemoveDeptTheRelationToModify")]
+    partial class RemoveDeptTheRelationToModify
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -54,19 +57,12 @@ namespace EFcore.Migrations
                         .HasDefaultValueSql("GETDATE()")
                         .HasAnnotation("DataType", "Date");
 
-                    b.Property<int?>("ManagerId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
                     b.HasKey("DeptId");
-
-                    b.HasIndex("ManagerId")
-                        .IsUnique()
-                        .HasFilter("[ManagerId] IS NOT NULL");
 
                     b.ToTable("Departments", (string)null);
 
@@ -97,13 +93,10 @@ namespace EFcore.Migrations
                     b.Property<int>("Age")
                         .HasColumnType("int");
 
-                    b.Property<int>("DepartmentId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("EmpName")
+                    b.Property<string>("Name")
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
@@ -119,9 +112,7 @@ namespace EFcore.Migrations
 
                     b.HasKey("EmpId");
 
-                    b.HasIndex("DepartmentId");
-
-                    b.ToTable("Employees", (string)null);
+                    b.ToTable("Employees");
                 });
 
             modelBuilder.Entity("EFcore.Models.Student", b =>
@@ -162,25 +153,9 @@ namespace EFcore.Migrations
                     b.ToTable("StudentsCourses", (string)null);
                 });
 
-            modelBuilder.Entity("EFcore.Models.Department", b =>
-                {
-                    b.HasOne("EFcore.Models.Employee", "Manager")
-                        .WithOne("ManagedDepartment")
-                        .HasForeignKey("EFcore.Models.Department", "ManagerId")
-                        .OnDelete(DeleteBehavior.NoAction);
-
-                    b.Navigation("Manager");
-                });
-
             modelBuilder.Entity("EFcore.Models.Employee", b =>
                 {
-                    b.HasOne("EFcore.Models.Department", "EmployeeDepartment")
-                        .WithMany("Employees")
-                        .HasForeignKey("DepartmentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.OwnsOne("EFcore.Models.Address", "EmpAddress", b1 =>
+                    b.OwnsOne("EFcore.Models.Address", "Address", b1 =>
                         {
                             b1.Property<int>("EmployeesAddressEmpId")
                                 .HasColumnType("int");
@@ -196,7 +171,7 @@ namespace EFcore.Migrations
 
                             b1.HasKey("EmployeesAddressEmpId");
 
-                            b1.ToTable("Employees", (string)null);
+                            b1.ToTable("Employees");
 
                             b1.WithOwner("EmployeesAddress")
                                 .HasForeignKey("EmployeesAddressEmpId");
@@ -204,10 +179,7 @@ namespace EFcore.Migrations
                             b1.Navigation("EmployeesAddress");
                         });
 
-                    b.Navigation("EmpAddress")
-                        .IsRequired();
-
-                    b.Navigation("EmployeeDepartment");
+                    b.Navigation("Address");
                 });
 
             modelBuilder.Entity("EFcore.Models.StudentsCourses", b =>
@@ -232,16 +204,6 @@ namespace EFcore.Migrations
             modelBuilder.Entity("EFcore.Models.Course", b =>
                 {
                     b.Navigation("CoursesStudents");
-                });
-
-            modelBuilder.Entity("EFcore.Models.Department", b =>
-                {
-                    b.Navigation("Employees");
-                });
-
-            modelBuilder.Entity("EFcore.Models.Employee", b =>
-                {
-                    b.Navigation("ManagedDepartment");
                 });
 
             modelBuilder.Entity("EFcore.Models.Student", b =>
