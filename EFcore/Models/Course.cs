@@ -11,7 +11,9 @@ namespace EFcore.Models
         public int Id { get; set; }
         public string Title { get; set; } = null!;
 
-        public ICollection<Student> Students { get; set; } = new HashSet<Student>(); // navigation property
+        //public ICollection<StudentsCourses> CoursesStudents { get; set; } = new HashSet<StudentsCourses>(); // navigation property
+
+        public ICollection<StudentsCourses> CoursesStudents { get; set; } = new HashSet<StudentsCourses>();
 
     }
 }

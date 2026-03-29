@@ -22,21 +22,6 @@ namespace EFcore.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("CourseStudent", b =>
-                {
-                    b.Property<int>("CoursesId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("StudentsId")
-                        .HasColumnType("int");
-
-                    b.HasKey("CoursesId", "StudentsId");
-
-                    b.HasIndex("StudentsId");
-
-                    b.ToTable("CourseStudent");
-                });
-
             modelBuilder.Entity("EFcore.Models.Course", b =>
                 {
                     b.Property<int>("Id")
@@ -129,19 +114,22 @@ namespace EFcore.Migrations
                     b.ToTable("Students", (string)null);
                 });
 
-            modelBuilder.Entity("CourseStudent", b =>
+            modelBuilder.Entity("EFcore.Models.StudentsCourses", b =>
                 {
-                    b.HasOne("EFcore.Models.Course", null)
-                        .WithMany()
-                        .HasForeignKey("CoursesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Property<int>("StdId")
+                        .HasColumnType("int");
 
-                    b.HasOne("EFcore.Models.Student", null)
-                        .WithMany()
-                        .HasForeignKey("StudentsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Property<int>("CrsId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("Grade")
+                        .HasColumnType("int");
+
+                    b.HasKey("StdId", "CrsId");
+
+                    b.HasIndex("CrsId");
+
+                    b.ToTable("StudentsCourses", (string)null);
                 });
 
             modelBuilder.Entity("EFcore.Models.Department", b =>
@@ -192,6 +180,30 @@ namespace EFcore.Migrations
                     b.Navigation("EmployeeDepartment");
                 });
 
+            modelBuilder.Entity("EFcore.Models.StudentsCourses", b =>
+                {
+                    b.HasOne("EFcore.Models.Course", "Course")
+                        .WithMany("CoursesStudents")
+                        .HasForeignKey("CrsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("EFcore.Models.Student", "Student")
+                        .WithMany("StudentsCourses")
+                        .HasForeignKey("StdId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Course");
+
+                    b.Navigation("Student");
+                });
+
+            modelBuilder.Entity("EFcore.Models.Course", b =>
+                {
+                    b.Navigation("CoursesStudents");
+                });
+
             modelBuilder.Entity("EFcore.Models.Department", b =>
                 {
                     b.Navigation("Employees");
@@ -200,6 +212,11 @@ namespace EFcore.Migrations
             modelBuilder.Entity("EFcore.Models.Employee", b =>
                 {
                     b.Navigation("ManagedDepartment");
+                });
+
+            modelBuilder.Entity("EFcore.Models.Student", b =>
+                {
+                    b.Navigation("StudentsCourses");
                 });
 #pragma warning restore 612, 618
         }

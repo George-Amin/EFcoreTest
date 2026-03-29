@@ -9,12 +9,23 @@ using System.Threading.Tasks;
 
 namespace EFcore.ModelConfigurations
 {
-    internal class StudentCourseConfiguratios //: IEntityTypeConfiguration<Models.StudentesCourses>
+    internal class StudentCourseConfiguratios : IEntityTypeConfiguration<Models.StudentsCourses>
 
     {
-        //public void Configure(EntityTypeBuilder<StudentesCourses> builder)
-        //{
-        //    //builder.ToTable("StudentCourses");
-        //}
+        public void Configure(EntityTypeBuilder<StudentsCourses> builder)
+        {
+            builder.ToTable("StudentsCourses");
+
+            builder.HasKey(sc => new { sc.StdId, sc.CrsId });
+
+            builder.HasOne(S => S.Student)
+                .WithMany(ST=>ST.StudentsCourses)
+                .HasForeignKey(S => S.StdId);
+
+
+            builder.HasOne(C => C.Course)
+                .WithMany(CR => CR.CoursesStudents)
+                .HasForeignKey(C => C.CrsId);
+        }
     }
 }

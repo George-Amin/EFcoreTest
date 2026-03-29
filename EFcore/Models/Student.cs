@@ -12,12 +12,13 @@ namespace EFcore.Models
 
         public string Name { get; set; }
         public int Age { get; set; }
+
         //public StudentesCourses? StudentesCourses { get; set; }
 
 
-        public ICollection<Course> Courses { get; set; } = new HashSet<Course>(); // navigational property
+        //public ICollection<Course> Courses { get; set; } = new HashSet<Course>(); // navigational property
 
 
-
+        public ICollection<StudentsCourses> StudentsCourses { get; set; } = new HashSet<StudentsCourses>();
     }
 }
