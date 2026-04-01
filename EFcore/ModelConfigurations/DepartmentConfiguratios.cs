@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection.Emit;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace EFcore.ConfigurationClasses
@@ -66,12 +67,23 @@ namespace EFcore.ConfigurationClasses
                 }
             );
 
+            builder.HasData(
+        
+                new Department()
+                {
+                    DeptId = 8,
+                    Name = "Marketing",
+                    DateOfCreation = new DateOnly(2024, 8, 5),
+                    ManagerId = 9
+                }
+            );
 
 
             #endregion
 
 
 
+            
 
         }
     }
