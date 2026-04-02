@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 
 namespace EFcore.Models
 {
-    internal class Course
+    public class Course
     {
         public int Id { get; set; }
         public string Title { get; set; } = null!;
 
         //public ICollection<StudentsCourses> CoursesStudents { get; set; } = new HashSet<StudentsCourses>(); // navigation property
 
-        public ICollection<StudentsCourses> CoursesStudents { get; set; } = new HashSet<StudentsCourses>();
+        public virtual ICollection<StudentsCourses> CoursesStudents { get; set; } = new HashSet<StudentsCourses>();
 
     }
 }

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace EFcore.DataSeeding
 {
-    internal static class CompanyDbContextSeed
+    public static class CompanyDbContextSeed
     {
         public static bool DataSeeding(CompanyDbContext DbContext)
         {

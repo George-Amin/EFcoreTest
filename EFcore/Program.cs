@@ -198,32 +198,124 @@ namespace EFcore
 
             #region EX02
 
+            /*
+                        // get the department with its employees    
+                        var Dept = dbContext.Set<Department>().FirstOrDefault(D => D.DeptId == 8);
+                        if (Dept != null)
+                        {
+                            Console.WriteLine($"Employess work in {Dept.Name}");
+                            // use collection navigation property to load the related data
+                            dbContext.Entry(Dept).Collection(E => E.Employees).Query().Where(e=>e.Age > 25).Load(); // it will load the related data in a separate query.
+                            foreach (var item in Dept.Employees)
+                            {
+                                Console.WriteLine(item.EmpName);
+                            }
 
-            // get the department with its employees    
-            var Dept = dbContext.Set<Department>().FirstOrDefault(D => D.DeptId == 8);
-            if (Dept != null)
-            {
-                Console.WriteLine($"Employess work in {Dept.Name}");
-                // use collection navigation property to load the related data
-                dbContext.Entry(Dept).Collection(E => E.Employees).Query().Where(e=>e.Age > 25).Load(); // it will load the related data in a separate query.
-                foreach (var item in Dept.Employees)
-                {
-                    Console.WriteLine(item.EmpName);
-                }
-
-            }
-
+                        }
+            */
             #endregion
             #endregion
 
 
             #region Lazy Loading -- > using Navigation Properties
+            /*          
+                       var Emp01 = dbContext.Employees.FirstOrDefault(E => E.EmpId == 9);
 
+
+                      if (Emp01 is null)
+                      {
+                          // is null
+                          Console.WriteLine("Employee not found");
+                      }
+                      else
+                      {
+                          // is not null
+                          Console.WriteLine($"Employee Name: {Emp01.EmpName}");
+                          Console.WriteLine($"Employee Name: {Emp01.DepartmentId}");
+
+
+                          Console.WriteLine($"Department Name: {Emp01.EmployeeDepartment?.Name}");
+
+                      }
+          */
+
+
+            /*
+
+                        var DeptWithEmps = dbContext.Set<Department>().FirstOrDefault(d=>d.DeptId == 8);
+
+                        if(DeptWithEmps != null)
+                        {
+                            Console.WriteLine($"Department Name : {DeptWithEmps.Name}");
+
+
+                            foreach (var item in DeptWithEmps.Employees)
+                            {
+                                Console.WriteLine($"Emps : {item.EmpName}");
+                            }
+                        }
+            */
 
             #endregion
 
 
             #endregion
+
+
+            #region Join()
+
+            #region Inner Join()
+
+            /*
+                        var JoinDeptWithEmps = dbContext.Set<Department>()
+                            .Join(
+                            dbContext.Employees, 
+                            D=>D.DeptId,
+                            E=>E.DepartmentId,
+                            (D, E) => new
+                            {
+                                EmployeeId = E.EmpId,
+                                EmployeesName = E.EmpName,
+                                DepartmentId = D.DeptId,
+                                DepartmentName = D.Name,
+
+                            });
+
+                        foreach (var Emps  in JoinDeptWithEmps)
+                        {
+                            Console.WriteLine(Emps);
+                        }
+
+            */
+
+            #region Query Syntax
+/*
+            var JoinDeptWithEmps = from DeptEmps in dbContext.Set<Department>()
+                                   join Emps in dbContext.Employees
+                                   on DeptEmps.DeptId equals Emps.DepartmentId
+                                   select new
+                                   {
+                                       EmployeeId = Emps.EmpId,
+                                       EmployeesName = Emps.EmpName,
+                                       DepartmentId = DeptEmps.DeptId,
+                                       DepartmentName = DeptEmps.Name,
+                                   };
+
+            if (JoinDeptWithEmps != null)
+                foreach (var Emps in JoinDeptWithEmps)
+                    Console.WriteLine(Emps);
+
+ */
+            #endregion
+
+
+            #endregion
+
+            #endregion
+
+
+
+
         }
     }
 }

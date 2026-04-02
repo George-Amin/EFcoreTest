@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace EFcore.ConfigurationClasses
 {
-    public class DepartmentConfiguratios : IEntityTypeConfiguration<Department>
+    internal class DepartmentConfiguratios : IEntityTypeConfiguration<Department>
     {
 
         public void Configure(EntityTypeBuilder<Department> builder)

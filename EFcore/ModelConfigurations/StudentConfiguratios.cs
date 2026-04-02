@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace EFcore.ModelConfigurations
 {
-    internal class StudentConfiguratios : IEntityTypeConfiguration<Models.Student>
+    public class StudentConfiguratios : IEntityTypeConfiguration<Models.Student>
     {
         public void Configure(EntityTypeBuilder<Student> builder)
         {

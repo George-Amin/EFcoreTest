@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace EFcore.ConfigurationClasses
 {
-    internal class EmployeesConfiguratios : IEntityTypeConfiguration<Employee>
+    public class EmployeesConfiguratios : IEntityTypeConfiguration<Employee>
 
     {
         public void Configure(EntityTypeBuilder<Employee> builder)

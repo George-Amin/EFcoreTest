@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace EFcore.Models
 {
-    internal class Student
+    public class Student
     {
         public int Id { get; set; }
 
@@ -19,6 +19,6 @@ namespace EFcore.Models
         //public ICollection<Course> Courses { get; set; } = new HashSet<Course>(); // navigational property
 
 
-        public ICollection<StudentsCourses> StudentsCourses { get; set; } = new HashSet<StudentsCourses>();
+        public virtual ICollection<StudentsCourses> StudentsCourses { get; set; } = new HashSet<StudentsCourses>();
     }
 }

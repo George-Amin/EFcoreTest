@@ -24,7 +24,7 @@ namespace EFcore.DBContext
         {
 
             optionsBuilder.UseSqlServer("server =GEORGE-AMIN; database=CompanyDb; Trusted_Connection=True; TrustServerCertificate=True;");
-
+            optionsBuilder.UseLazyLoadingProxies(); 
 
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)

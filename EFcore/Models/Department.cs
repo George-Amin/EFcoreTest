@@ -20,13 +20,11 @@ namespace EFcore.Models
 
         public int? ManagerId { get; set; } // FK
 
-        public Employee Manager { get; set; } = null!; // Navigation property for the manager of the department
+        public virtual Employee Manager { get; set; } = null!; // Navigation property for the manager of the department
 
-        public ICollection<Employee> Employees { get; set; } = new HashSet<Employee>(); // Navigation property for the employees in the department
+        public virtual ICollection<Employee> Employees { get; set; } = new HashSet<Employee>(); // Navigation property for the employees in the department
 
         #endregion
-
-
 
 
 

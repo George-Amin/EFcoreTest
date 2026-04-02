@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace EFcore.Models
 {
     //[PrimaryKey(nameof(StdId), nameof(CrsId))]  
-    internal class StudentsCourses
+    public class StudentsCourses
     {
         //[ForeignKey(nameof(Student))]
         public int StdId { get; set; }
@@ -22,8 +22,8 @@ namespace EFcore.Models
 
         public int? Grade { get; set; }
         // re
-        public Student Student { get; set; } = null!;
-        public Course Course { get; set; } = null!; 
+        public virtual Student Student { get; set; } = null!;
+        public virtual Course Course { get; set; } = null!; 
 
     }
 }
